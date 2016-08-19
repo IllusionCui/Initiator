@@ -14,7 +14,8 @@ public class MainItemView : MonoBehaviour {
 	}
 
 	public void OnPlay() {
-		GameManager.Curr.PlayLevel (_levelInfo.key);
+		GameManager gm = GameManager.Curr;
+		gm.PlayLevel (_levelInfo.type, gm.LevelManager.GetLevelData(_levelInfo.key));
 	}
 
 	public void OnEdite() {

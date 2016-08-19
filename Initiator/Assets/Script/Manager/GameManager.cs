@@ -66,8 +66,8 @@ public class GameManager : MonoBehaviour {
 		Status = GameStatus.Edite;
 	}
 
-	public void PlayLevel(string key) {
-		playView.PlayLevel (key);
+	public void PlayLevel(GameType type, LevelData ld) {
+		playView.PlayLevel (type, ld);
 		Status = GameStatus.Play;
 	}
 }

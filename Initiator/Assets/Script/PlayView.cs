@@ -13,7 +13,7 @@ public class PlayView : MonoBehaviour {
 	
 	}
 
-	public void PlayLevel(string key) {
+	public void PlayLevel(GameType type, LevelData ld) {
 
 	}
 }

@@ -37,6 +37,12 @@ public class LevelManager {
 
 		return key;
 	}
+
+	public LevelData GetLevelData(string key) {
+		LevelData res = null;
+
+		return res;
+	}
 		
 	public void SaveLevel(string key) {
 		
