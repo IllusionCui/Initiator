@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour {
 		get { return _levelManager; }
 	}
 
+	// info
+	public GameStatus StatusBeforePlay {
+		private set;
+		get;
+	}
+
 	private static GameManager _curr = null;
 	public static GameManager Curr {
 		get { return _curr; }
@@ -67,7 +73,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void PlayLevel(GameType type, LevelData ld) {
+		StatusBeforePlay = Status;
+
 		playView.PlayLevel (type, ld);
 		Status = GameStatus.Play;
+	}
+
+	public void EndPlay() {
+		Status = StatusBeforePlay;
 	}
 }
