@@ -1,14 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum GameStatus {
-	Main,
-	Edite,
-	Play,
-	Succ,
-	Failed
-}
-
 public class GameManager : MonoBehaviour {
 	// views
 	public MainView mainView;
@@ -49,6 +41,7 @@ public class GameManager : MonoBehaviour {
 			return;
 		}
 		_curr = this;
+		DontDestroyOnLoad (gameObject);
 
 		Init ();
 	} 
@@ -56,6 +49,9 @@ public class GameManager : MonoBehaviour {
 	void Init() {
 		_levelManager = new LevelManager ();
 
+	}
+
+	void Start() {
 		Status = GameStatus.Main;
 	}
 
@@ -65,6 +61,10 @@ public class GameManager : MonoBehaviour {
 		playView.gameObject.SetActive (Status == GameStatus.Play);
 		succView.gameObject.SetActive (Status == GameStatus.Succ);
 		failedView.gameObject.SetActive (Status == GameStatus.Failed);
+	}
+
+	public void GotoMain() {
+		Status = GameStatus.Main;
 	}
 
 	public void EditeLevel(string key) {

@@ -21,9 +21,9 @@ public class MainView : MonoBehaviour {
 	void UpdateList() {
 		List<RectTransform> list = new List<RectTransform> ();
 		LevelManager lv = GameManager.Curr.LevelManager;
-		for(int i = 0; i < lv.levelInfoes.Count; i++) {
+		for(int i = 0; i < lv.keys.Count; i++) {
 			MainItemView item = Instantiate (itemPerfab) as MainItemView;
-			item.SetLevelInfo (lv.levelInfoes[i]);
+			item.SetLevelInfo (lv.GetLevelInfo(lv.keys[i]));
 			list.Add (item.transform as RectTransform);
 		}
 

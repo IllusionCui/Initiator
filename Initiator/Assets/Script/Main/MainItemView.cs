@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class MainItemView : MonoBehaviour {
-	public Text name;
+	public Text id;
 	public Image type;
 
 	private LevelInfo _levelInfo;
@@ -23,7 +23,7 @@ public class MainItemView : MonoBehaviour {
 	}
 
 	void UpdateView() {
-		name.text = _levelInfo.name;
-		type.color = Config.GetColorByType (_levelInfo.type);
+		id.text = _levelInfo.name;
+		type.sprite = ResouceManager.Curr.GetSprite (_levelInfo.type.ToString());
 	}
 }
