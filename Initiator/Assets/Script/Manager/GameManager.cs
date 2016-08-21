@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
+	public Canvas canvas;
+
 	// views
 	public MainView mainView;
 	public EditeView editeView;
@@ -33,6 +35,10 @@ public class GameManager : MonoBehaviour {
 			_status = value;
 			UpdateView ();
 		}
+	}
+
+	public Vector3 AdjustToDesign(Vector3 pos) {
+		return new Vector3 (pos.x / canvas.scaleFactor, pos.y / canvas.scaleFactor,pos.z);
 	}
 
 	void Awake() {
@@ -77,6 +83,19 @@ public class GameManager : MonoBehaviour {
 
 		playView.PlayLevel (type, ld);
 		Status = GameStatus.Play;
+	}
+
+	public void Replay() {
+		playView.Replay ();
+		Status = GameStatus.Play;
+	}
+
+	public void PlayWin() {
+		Status = GameStatus.Succ;
+	}
+
+	public void PlayFailed() {
+		Status = GameStatus.Failed;
 	}
 
 	public void EndPlay() {

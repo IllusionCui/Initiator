@@ -2,14 +2,11 @@
 using System.Collections;
 
 public class FailedView : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
+	public void OnOK() {
+		GameManager.Curr.EndPlay ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void OnReplay() {
+		GameManager.Curr.Replay ();
 	}
 }

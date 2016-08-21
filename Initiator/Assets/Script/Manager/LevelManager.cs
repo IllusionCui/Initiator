@@ -15,6 +15,10 @@ public class LevelInfo {
 		type = Config.DEFAULT_GAME_TYPE;
 	}
 
+	public LevelInfo(MTJSONObject json) {
+		Deserialize (json);
+	}
+
 	public MTJSONObject Serialize() {
 		MTJSONObject res = MTJSONObject.CreateDict ();
 		res.Add ("key", key);
@@ -32,19 +36,38 @@ public class LevelInfo {
 
 public class LevelData {
 	public string key;
+	public List<Vector3> items = new List<Vector3>();
 
 	public LevelData(string key_) {
 		key = key_;
 	}
 
+	public LevelData(MTJSONObject json) {
+		Deserialize (json);
+	}
+
 	public MTJSONObject Serialize() {
 		MTJSONObject res = MTJSONObject.CreateDict ();
 		res.Add ("key", key);
+		MTJSONObject itemsJO = MTJSONObject.CreateList ();
+		for (int i = 0; i < items.Count; i++) {
+			MTJSONObject itemJO = MTJSONObject.CreateDict ();
+			itemJO.Add ("x", items[i].x);
+			itemJO.Add ("y", items[i].y);
+			itemsJO.Add (itemJO);
+		}
+		res.Add ("items", itemsJO);
 		return res;
 	}
 
 	public void Deserialize(MTJSONObject json) {
 		key = json ["key"].s;
+		items.Clear ();
+		for (int i = 0; i < json ["items"].list.Count; i++) {
+			MTJSONObject itemJO = json ["items"].Get (i);
+			Vector3 item = new Vector3 (itemJO["x"].f, itemJO["y"].f, 0);
+			items.Add (item);
+		}
 	}
 }
 
@@ -78,7 +101,10 @@ public class LevelManager {
 	public LevelInfo GetLevelInfo(string key) {
 		LevelInfo res = null;
 
-		if (res == null) {
+		string path = GetLevelInfoPath (key);
+		if (File.Exists(path)) {
+			res = new LevelInfo (MTJSON.Deserialize(File.ReadAllText (path)));
+		} else {
 			res = new LevelInfo (key);
 			SaveLevel (res, null);
 		}
@@ -89,7 +115,10 @@ public class LevelManager {
 	public LevelData GetLevelData(string key) {
 		LevelData res = null;
 
-		if (res == null) {
+		string path = GetLevelDataPath (key);
+		if (File.Exists(path)) {
+			res = new LevelData (MTJSON.Deserialize(File.ReadAllText (path)));
+		} else {
 			res = new LevelData (key);
 			SaveLevel (null, res);
 		}
@@ -99,15 +128,23 @@ public class LevelManager {
 		
 	public void SaveLevel(LevelInfo info, LevelData data) {
 		if (info != null) {
-			string path = Path.Combine (_basePath, info.key);
-			path = Path.Combine (path, "info");
-			File.WriteAllText (path, info.Serialize().ToString());
+			File.WriteAllText (GetLevelInfoPath(info.key), info.Serialize().ToString());
 		}
 
 		if (data != null) {
-			string path = Path.Combine (_basePath, data.key);
-			path = Path.Combine (path, "data");
-			File.WriteAllText (path, data.Serialize().ToString());
+			File.WriteAllText (GetLevelDataPath(data.key), data.Serialize().ToString());
 		}
+	}
+
+	string GetLevelInfoPath(string key) {
+		string path = Path.Combine (_basePath, key);
+		path = Path.Combine (path, "info");
+		return path;
+	}
+
+	string GetLevelDataPath(string key) {
+		string path = Path.Combine (_basePath, key);
+		path = Path.Combine (path, "data");
+		return path;
 	}
 }
