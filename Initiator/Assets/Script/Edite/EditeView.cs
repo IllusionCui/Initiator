@@ -13,6 +13,7 @@ public class EditeView : MonoBehaviour , MenuControllerListener {
 	public RectTransform viewPort;
 	public Map map;
 
+	private bool _init = false;
 	private Dictionary<GameType, MenuItemView> modelViews = new Dictionary<GameType, MenuItemView>();
 	private Dictionary<EditeOperationType, MenuItemView> operationViews = new Dictionary<EditeOperationType, MenuItemView>();
 
@@ -23,7 +24,12 @@ public class EditeView : MonoBehaviour , MenuControllerListener {
 
 	private int _fingerId = -1;
 
-	void Awake () {
+
+	void Init () {
+		if (_init) {
+			return;
+		}
+		_init = true;
 		InitMenuController ();
 		InitModelController ();
 		InitOperationController ();
@@ -60,7 +66,6 @@ public class EditeView : MonoBehaviour , MenuControllerListener {
 			MenuItemView itemView = Instantiate(operationController.commonMenuItemViewPerfab, Vector3.zero, Quaternion.identity) as MenuItemView;
 			itemView.SetMenuItem (item);
 			itemView.GetComponent<MenuItemViewImageHelper> ().normalSprite = ResouceManager.Curr.GetSprite (names [i]);
-			itemView.DefaultInitTextHelper ();
 			menuItemViews.Add (itemView);
 			operationViews.Add (type, itemView);
 		}
@@ -117,6 +122,7 @@ public class EditeView : MonoBehaviour , MenuControllerListener {
 	}
 
 	public void EditeLevel(string key) {
+		Init ();
 		_fingerId = -1;
 		_operationType = Config.DEFAULT_EDITE_OPERATION;
 
