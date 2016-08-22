@@ -6,6 +6,12 @@ using MTUnity.Utils;
 public class Map : MonoBehaviour {
 	private List<RectTransform> _items = new List<RectTransform> ();
 
+	private Vector3 _dir = Vector3.zero;
+	public Vector3 Dir {
+		get { return _dir; }
+		set { _dir = value; }
+	}
+
 	public void Init(LevelData ld, GameStatus status) {
 		TransformUtil.RemoveAllChildren (transform);
 

@@ -140,6 +140,8 @@ public class EditeView : MonoBehaviour , MenuControllerListener {
 				gm.LevelManager.SaveLevel (_levelInfo, _levelData);
 				gm.GotoMain ();
 			} else if (menuItemView.name == "test") {
+				map.UpdateLevelData (_levelData);
+
 				GameManager.Curr.PlayLevel (_levelInfo.type, _levelData);
 			} else if (menuItemView.name == "cancel") {
 				GameManager.Curr.GotoMain ();

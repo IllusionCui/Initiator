@@ -5,9 +5,13 @@ public class SlideModel : ModelBase {
 	private bool _isMoving = false;
 	private int _fingerId = -1;
 
-	void Update () {
+	void Start() {
+		map.Dir = Vector3.down;
+	}
+
+	void FixedUpdate () {
 		if (_isMoving) {
-			map.transform.Translate(Vector3.down*Config.SLIDE_MOVE_SPEED*Time.deltaTime);
+			map.transform.Translate(map.Dir*Config.SLIDE_MAP_MOVE_SPEED*Time.deltaTime);
 		}
 			
 		// mouse
