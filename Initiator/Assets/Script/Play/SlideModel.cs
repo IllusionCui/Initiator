@@ -7,11 +7,13 @@ public class SlideModel : ModelBase {
 
 	void Start() {
 		map.Dir = Vector3.down;
+		map.BaseSpeed = Config.MAP_MOVE_SPEED_H;
 	}
 
 	void FixedUpdate () {
 		if (_isMoving) {
-			map.transform.Translate(map.Dir*Config.SLIDE_MAP_MOVE_SPEED*Time.deltaTime);
+			map.transform.Translate(map.Speed*Time.deltaTime);
+			CheckWin ();
 		}
 			
 		// mouse

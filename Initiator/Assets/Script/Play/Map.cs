@@ -12,6 +12,27 @@ public class Map : MonoBehaviour {
 		set { _dir = value; }
 	}
 
+	public float BaseSpeed {
+		get;
+		set;
+	}
+
+	public Vector3 Speed {
+		get { 
+			return  Dir * BaseSpeed;
+		}
+	}
+
+	public StartLine StartLine {
+		get;
+		private set;
+	}
+
+	public EndLine EndLine {
+		get;
+		private set;
+	}
+
 	public void Init(LevelData ld, GameStatus status) {
 		_items.Clear ();
 		TransformUtil.RemoveAllChildren (transform);
@@ -21,10 +42,22 @@ public class Map : MonoBehaviour {
 		}
 
 		if (status == GameStatus.Play) {
-			RectTransform endLine = ResouceManager.Curr.CreateGameObject("EndLine").transform as RectTransform;
+			// startline
+			RectTransform startLine = ResouceManager.Curr.CreateGameObject ("StartLine").transform as RectTransform;
+			startLine.SetParent (this.transform);
+			startLine.localScale = Vector3.one;
+			startLine.localPosition = Vector3.zero;
+			StartLine = startLine.GetComponent<StartLine> ();
+
+			// endline
+			RectTransform endLine = ResouceManager.Curr.CreateGameObject ("EndLine").transform as RectTransform;
 			endLine.SetParent (this.transform);
 			endLine.localScale = Vector3.one;
-			endLine.localPosition = new Vector3(endLine.localPosition.x, 4700, 0);
+			endLine.localPosition = new Vector3 (0, 4800, 0);
+			EndLine = endLine.GetComponent<EndLine> ();
+		} else {
+			StartLine = null;
+			EndLine = null;
 		}
 	}
 

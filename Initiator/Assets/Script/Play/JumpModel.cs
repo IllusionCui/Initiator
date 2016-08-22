@@ -3,17 +3,26 @@ using System.Collections;
 
 public class JumpModel : ModelBase {
 	private bool _isMoving = false;
-	private int _fingerId = -1;
 
 	void Start() {
 		player.Dir = new Vector3(1, 1, 0);
 		player.BaseSpeed = Config.JUMP_PLAYER_SPEED;
 		map.Dir = Vector3.down;
+		map.BaseSpeed = Config.MAP_MOVE_SPEED_H;
 	}
 
 	void FixedUpdate () {
 		if (_isMoving) {
-			map.transform.Translate(map.Dir*Config.JUMP_MAP_MOVE_SPEED*Time.deltaTime);
+			map.transform.Translate(map.Speed*Time.deltaTime);
+			CheckWin ();
+		}
+
+		if (player.transform.localPosition.x <= 0) {
+			player.Dir = new Vector3(1, 1, 0);
+			player.transform.localPosition = new Vector3 (-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
+		} else if (player.transform.localPosition.x >= Config.DESIGN_WIDTH) {
+			player.Dir = new Vector3(-1, 1, 0);
+			player.transform.localPosition = new Vector3 (Config.DESIGN_WIDTH*2-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
 		}
 
 		bool jump = false;

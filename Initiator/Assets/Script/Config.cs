@@ -26,9 +26,8 @@ public class Config {
 	public const GameType DEFAULT_GAME_TYPE = GameType.Jump;
 	public const EditeOperationType DEFAULT_EDITE_OPERATION = EditeOperationType.Rect;
 
-	public const float SLIDE_MAP_MOVE_SPEED = 20;
+	public static float MAP_MOVE_SPEED_H = 32;
 
-	public const float JUMP_MAP_MOVE_SPEED = 12;
-	public static Vector2 JUMP_PLAYER_SPEED = new Vector2(100, 200);
-	public const float JUMP_PLAYER_G_SCALE = 80f;
+	public static Vector2 JUMP_PLAYER_SPEED = new Vector2(50, 118);
+	public const float JUMP_PLAYER_G_SCALE = 32f;
 }

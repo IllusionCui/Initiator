@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class EndLine : MonoBehaviour {
-	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("EndLine");
-		if (other.gameObject.tag == "Player") {
-			GameManager.Curr.PlayWin ();
+	public RectTransform line;
+
+	public bool CheckWin(Player player) {
+		if (player.transform.position.y >= line.position.y) {
+			return true;
 		}
+		return false;
 	}
 }
