@@ -13,16 +13,18 @@ public class JumpModel : ModelBase {
 
 	void FixedUpdate () {
 		if (_isMoving) {
-			map.transform.Translate(map.Speed*Time.deltaTime);
+			bool changeDir = false;
+			if (player.transform.localPosition.x <= 0) {
+				changeDir = true;
+				player.Dir = new Vector3(1, 1, 0);
+				player.transform.localPosition = new Vector3 (-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
+			} else if (player.transform.localPosition.x >= Config.DESIGN_WIDTH) {
+				changeDir = true;
+				player.Dir = new Vector3(-1, 1, 0);
+				player.transform.localPosition = new Vector3 (Config.DESIGN_WIDTH*2-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
+			}
+			map.transform.Translate(map.Speed*Time.deltaTime*(changeDir ? 2 : 1));
 			CheckWin ();
-		}
-
-		if (player.transform.localPosition.x <= 0) {
-			player.Dir = new Vector3(1, 1, 0);
-			player.transform.localPosition = new Vector3 (-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
-		} else if (player.transform.localPosition.x >= Config.DESIGN_WIDTH) {
-			player.Dir = new Vector3(-1, 1, 0);
-			player.transform.localPosition = new Vector3 (Config.DESIGN_WIDTH*2-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
 		}
 
 		bool jump = false;
