@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Block : MonoBehaviour {
+public class EndLine : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("Block");
+		Debug.Log ("EndLine");
 		if (other.gameObject.tag == "Player") {
-			GameManager.Curr.PlayFailed ();
+			GameManager.Curr.PlayWin ();
 		}
 	}
 }
