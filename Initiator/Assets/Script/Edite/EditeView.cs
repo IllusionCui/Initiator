@@ -37,7 +37,7 @@ public class EditeView : MonoBehaviour , MenuControllerListener {
 
 	void InitMenuController() {
 		var names = new String[]{"save", "test", "cancel"};
-		menuController.SetMenuItemViews (menuController.CreateCommonMenuItemViews(MenuItem.CreateMenuItems(names)), MenuControllerSelectType.OnlyOne);
+		menuController.SetMenuItemViews (menuController.CreateCommonMenuItemViews(MenuItem.CreateMenuItems(names)), MenuControllerSelectType.None);
 		menuController.AddMenuControllerListener (this);
 	}
 

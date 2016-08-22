@@ -13,6 +13,7 @@ public class Map : MonoBehaviour {
 	}
 
 	public void Init(LevelData ld, GameStatus status) {
+		_items.Clear ();
 		TransformUtil.RemoveAllChildren (transform);
 
 		for(int i = 0; i < ld.items.Count; i++) {
