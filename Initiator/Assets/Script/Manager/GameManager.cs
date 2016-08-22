@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour {
 	} 
 
 	void Init() {
+		Application.targetFrameRate = 60;
+
 		_levelManager = new LevelManager ();
 
 	}
