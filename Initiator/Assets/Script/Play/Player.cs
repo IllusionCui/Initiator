@@ -6,16 +6,22 @@ public class Player : MonoBehaviour {
 	public Vector3 Dir {
 		get { return _dir; }
 		set {
-			Rigidbody2D rb = GetComponent<Rigidbody2D> ();
-			Vector2 v = rb.velocity;
-			if (_dir.x != 0) {
-				v.x *= value.x / _dir.x;
-			}
-			if (_dir.y != 0) {
-				v.y *= value.y / _dir.y;
-			}
-			rb.velocity = v;
 			_dir = value;
+			GetComponent<Rigidbody2D> ().velocity = Speed;
+		}
+	}
+
+	public Vector2 BaseSpeed {
+		get;
+		set;
+	}
+
+	public Vector2 Speed {
+		get { 
+			Vector2 v = BaseSpeed;
+			v.x *= Dir.x;
+			v.y *= Dir.y;
+			return v;
 		}
 	}
 }

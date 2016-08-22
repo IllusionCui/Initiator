@@ -7,6 +7,7 @@ public class JumpModel : ModelBase {
 
 	void Start() {
 		player.Dir = new Vector3(1, 1, 0);
+		player.BaseSpeed = Config.JUMP_PLAYER_SPEED;
 		map.Dir = Vector3.down;
 	}
 
@@ -33,16 +34,13 @@ public class JumpModel : ModelBase {
 			if (!_isMoving) {
 				SetIsMoving (true);
 			}
-			Vector2 v = Config.JUMP_PLAYER_SPEED * GameManager.Curr.canvas.scaleFactor;
-			v.x *= player.Dir.x;
-			v.y *= player.Dir.y;
-			player.GetComponent<Rigidbody2D> ().velocity = v;
+			player.GetComponent<Rigidbody2D> ().velocity = player.Speed;
 		}
 	}
 
 	void SetIsMoving(bool value) {
 		_isMoving = value;
-		player.GetComponent<Rigidbody2D> ().gravityScale = _isMoving ? Config.JUMP_PLAYER_G_SCALE * GameManager.Curr.canvas.scaleFactor : 0;
+		player.GetComponent<Rigidbody2D> ().gravityScale = _isMoving ? Config.JUMP_PLAYER_G_SCALE : 0;
 	}
 
 	void SetPlayer(Vector3 screenPos) {
