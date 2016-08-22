@@ -50,7 +50,6 @@ public class SlideModel : ModelBase {
 	}
 
 	void SetPlayer(Vector3 screenPos) {
-		screenPos.x -= Screen.width / 2;
 		player.transform.localPosition = new Vector3(GameManager.Curr.AdjustToDesign(screenPos).x, player.transform.localPosition.y, 0);
 //		Debug.Log ("screenPos = " + screenPos + ", player.transform.localPosition = " + player.transform.localPosition + ", player.transform.position = " + player.transform.position);
 	}
