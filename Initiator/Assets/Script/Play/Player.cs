@@ -7,7 +7,6 @@ public class Player : MonoBehaviour {
 		get { return _dir; }
 		set {
 			_dir = value;
-			GetComponent<Rigidbody2D> ().velocity = Speed;
 		}
 	}
 

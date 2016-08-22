@@ -11,19 +11,25 @@ public class JumpModel : ModelBase {
 		map.BaseSpeed = Config.MAP_MOVE_SPEED_H;
 	}
 
-	void FixedUpdate () {
+	void Update () {
 		if (_isMoving) {
+			map.transform.Translate (map.Speed * Time.deltaTime);
+
 			bool changeDir = false;
-			if (player.transform.localPosition.x <= 0) {
+			if (player.transform.localPosition.x < 0) {
 				changeDir = true;
 				player.Dir = new Vector3(1, 1, 0);
 				player.transform.localPosition = new Vector3 (-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
-			} else if (player.transform.localPosition.x >= Config.DESIGN_WIDTH) {
+			} else if (player.transform.localPosition.x > Config.DESIGN_WIDTH) {
 				changeDir = true;
 				player.Dir = new Vector3(-1, 1, 0);
 				player.transform.localPosition = new Vector3 (Config.DESIGN_WIDTH*2-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
 			}
-			map.transform.Translate(map.Speed*Time.deltaTime*(changeDir ? 2 : 1));
+
+			if (changeDir) {
+				Rigidbody2D rb = player.GetComponent<Rigidbody2D> ();
+				rb.velocity = new Vector2 (-rb.velocity.x, rb.velocity.y);
+			}
 			CheckWin ();
 		}
 
