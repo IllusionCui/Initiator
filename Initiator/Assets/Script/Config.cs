@@ -28,6 +28,6 @@ public class Config {
 
 	public static float MAP_MOVE_SPEED_H = 32;
 
-	public static Vector2 JUMP_PLAYER_SPEED = new Vector2(55, 122);
+	public static Vector2 JUMP_PLAYER_SPEED = new Vector2(55, 119);
 	public const float JUMP_PLAYER_G_SCALE = 34.5f;
 }
