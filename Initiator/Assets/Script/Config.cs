@@ -29,6 +29,6 @@ public class Config {
 	public const float SLIDE_MAP_MOVE_SPEED = 20;
 
 	public const float JUMP_MAP_MOVE_SPEED = 12;
-	public static Vector2 JUMP_PLAYER_SPEED = new Vector2(100, 160);
-	public const float JUMP_PLAYER_G_SCALE = 70f;
+	public static Vector2 JUMP_PLAYER_SPEED = new Vector2(100, 200);
+	public const float JUMP_PLAYER_G_SCALE = 80f;
 }
