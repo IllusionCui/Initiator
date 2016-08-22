@@ -64,9 +64,7 @@ public class Map : MonoBehaviour {
 	public bool AddItem(Vector3 pos) {
 		for(int i = 0; i < _items.Count; i++) {
 			Rect rect = new Rect (new Vector2(_items [i].localPosition.x + _items[i].rect.x, _items [i].localPosition.y + _items[i].rect.y), new Vector2(_items[i].rect.width, _items[i].rect.height));
-			Rect rect2 = new Rect (new Vector2(pos.x + _items[i].rect.x, pos.y + _items[i].rect.y), new Vector2(_items[i].rect.width, _items[i].rect.height));
-//			Debug.Log ("i = " + i + ", rect2 = " + rect2 + ", rect = " + rect);
-			if (rect.Overlaps(rect2)) {
+			if (rect.Contains(pos)) {
 				return false;
 			}
 		}
