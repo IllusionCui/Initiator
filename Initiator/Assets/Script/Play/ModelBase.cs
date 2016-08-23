@@ -35,15 +35,22 @@ public class ModelBase : MonoBehaviour {
     public virtual void Init() {
         _status = ModelStatus.Init;
 
+        // player
+        RectTransform playerRTF = ResouceManager.Curr.CreateGameObject("Player").transform as RectTransform;
+        playerRTF.SetParent (this.transform);
+        playerRTF.localScale = Vector3.one;
+        playerRTF.localPosition = new Vector3(Config.DESIGN_WIDTH/2, Config.DESIGN_HEIGHT/3, 0);
+        player = playerRTF.GetComponent<Player>();
+
         PlayView playView = GameManager.Curr.playView;
         map.Init (playView.Data, GameStatus.Play);
     }
 
-    protected virtual void StartEndEffect() {
+    public virtual void StartEndEffect() {
     
     }
 
-    protected virtual void FinsihedEndEffect() {
+    public virtual void FinsihedEndEffect() {
         if (IsWin) {
             GameManager.Curr.PlayWin ();
         } else if (IsFailed) {
