@@ -47,7 +47,6 @@ public class ModelBase : MonoBehaviour {
     }
 
     public virtual void StartEndEffect() {
-    
     }
 
     public virtual void FinsihedEndEffect() {

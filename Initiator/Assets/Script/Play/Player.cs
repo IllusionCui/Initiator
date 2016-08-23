@@ -24,26 +24,35 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+    private Rigidbody2D _rigidbody2D;
+    public Rigidbody2D Rigidbody2D {
+        get { 
+            if (_rigidbody2D == null) {
+                _rigidbody2D = GetComponent<Rigidbody2D> ();
+            }
+            return _rigidbody2D;
+        }
+    }
+
     private int _hp = 1;
 
-    private int _fadeCount = 0;
     public void BeHit() {
-        if (_fadeCount > 0) {
-            _fadeCount = 3;
-            return;
-        }
-        _hp--;
-        if (_hp == 0) {
-            ModelBase model = GameManager.Curr.playView.Model;
-            if (model != null && model.IsPlay) {
-                model.End(false);
-            }
-        }
+        // anim
         gameObject.GetComponent<ImageFade>().FadeOutInAnim(3, delegate() {
             ModelBase model = GameManager.Curr.playView.Model;
             if (model != null && model.IsFailed) {
                 model.FinsihedEndEffect();
             }
         });
+
+        if (_hp > 0) {
+            _hp--;
+            if (_hp == 0) {
+                ModelBase model = GameManager.Curr.playView.Model;
+                if (model != null && model.IsPlay) {
+                    model.End(false);
+                }
+            }
+        }
     }
 }

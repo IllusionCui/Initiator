@@ -17,33 +17,41 @@ public class JumpModel : ModelBase {
         if (_status == ModelStatus.Start) {
             if (HasTouchBegin()) {
                 Jump();
-                player.GetComponent<Rigidbody2D> ().gravityScale = Config.JUMP_PLAYER_G_SCALE;
+                player.Rigidbody2D.gravityScale = Config.JUMP_PLAYER_G_SCALE;
                 _status = ModelStatus.Play;
             }
         } else if (_status == ModelStatus.Play) {
             map.transform.Translate(map.Speed*Time.deltaTime);
-
-
             if (map.EndLine.CheckWin(player)) {
                 End(true);
             } else {
                 if (player.transform.localPosition.x < 0) {
                     player.Dir = new Vector3(1, 1, 0);
-                    Rigidbody2D rb = player.GetComponent<Rigidbody2D> ();
-                    rb.velocity = new Vector2 (-rb.velocity.x, rb.velocity.y);
+                    player.Rigidbody2D.velocity = new Vector2 (-player.Rigidbody2D.velocity.x, player.Rigidbody2D.velocity.y);
                     player.transform.localPosition = new Vector3 (-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
                 } else if (player.transform.localPosition.x > Config.DESIGN_WIDTH) {
                     player.Dir = new Vector3(-1, 1, 0);
-                    Rigidbody2D rb = player.GetComponent<Rigidbody2D> ();
-                    rb.velocity = new Vector2 (-rb.velocity.x, rb.velocity.y);
+                    player.Rigidbody2D.velocity = new Vector2 (-player.Rigidbody2D.velocity.x, player.Rigidbody2D.velocity.y);
                     player.transform.localPosition = new Vector3 (Config.DESIGN_WIDTH*2-player.transform.localPosition.x, player.transform.localPosition.y, player.transform.localPosition.z);
                 }
                 if (HasTouchBegin()) {
                     Jump();
                 }
             }
+        } else if (_status == ModelStatus.Win) {
+            if (player.Rigidbody2D.velocity.y <= 0) {
+                player.Rigidbody2D.velocity = player.Speed;
+                if (player.transform.localPosition.y > Config.DESIGN_HEIGHT) {
+                    FinsihedEndEffect();
+                }
+            }
         }
-	}
+    }
+
+    public override void StartEndEffect() {
+        player.Dir = Vector3.up;
+        player.Rigidbody2D.velocity = player.Speed;
+    }
 
     bool HasTouchBegin() {
         // mouse
@@ -60,6 +68,6 @@ public class JumpModel : ModelBase {
     }
 
     void Jump() {
-        player.GetComponent<Rigidbody2D> ().velocity = player.Speed;
+        player.Rigidbody2D.velocity = player.Speed;
 	}
 }

@@ -25,6 +25,9 @@ public class ImageFade : MonoBehaviour {
 	}
 
     public void FadeOutInAnim(int count, Action actionCallBack) {
+        if (_actionCount > 0) {
+            return;
+        }
         _actionCount = count * 2;
         FadeOutAnim(actionCallBack);
     }

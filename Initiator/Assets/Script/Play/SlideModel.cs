@@ -31,8 +31,22 @@ public class SlideModel : ModelBase {
                     SetPlayer(fingerPos);
                 }
             }
-		}
-	}
+        } else if (_status == ModelStatus.Win) {
+            if (player.Rigidbody2D.velocity.y <= 0) {
+                player.Rigidbody2D.velocity = player.Speed;
+                if (player.transform.localPosition.y > Config.DESIGN_HEIGHT) {
+                    FinsihedEndEffect();
+                }
+            }
+        }
+    }
+
+    public override void StartEndEffect() {
+        player.Dir = Vector3.up;
+        player.BaseSpeed = Config.JUMP_PLAYER_SPEED;
+        player.Rigidbody2D.velocity = player.Speed;
+        player.Rigidbody2D.gravityScale = Config.JUMP_PLAYER_G_SCALE;
+    }
 
     bool GetFingerPos(out Vector3 fingerPos) {
         // mouse
