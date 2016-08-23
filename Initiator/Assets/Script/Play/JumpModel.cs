@@ -14,13 +14,13 @@ public class JumpModel : ModelBase {
     }
 
     void Update () {
-        if (_status == ModelStatus.Start) {
+		if (IsStart) {
             if (HasTouchBegin()) {
                 Jump();
                 player.Rigidbody2D.gravityScale = Config.JUMP_PLAYER_G_SCALE;
                 _status = ModelStatus.Play;
             }
-        } else if (_status == ModelStatus.Play) {
+		} else if (IsPlay) {
             map.transform.Translate(map.Speed*Time.deltaTime);
             if (map.EndLine.CheckWin(player)) {
                 End(true);
@@ -38,7 +38,7 @@ public class JumpModel : ModelBase {
                     Jump();
                 }
             }
-        } else if (_status == ModelStatus.Win) {
+		} else if (IsWin) {
             if (player.Rigidbody2D.velocity.y <= 0) {
                 player.Rigidbody2D.velocity = player.Speed;
                 if (player.transform.localPosition.y > Config.DESIGN_HEIGHT) {
