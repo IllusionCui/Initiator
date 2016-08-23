@@ -14,6 +14,14 @@ public enum GameType {
 	Slide
 }
 
+public enum ModelStatus {
+    Init,
+    Start,
+    Play,
+    Win,
+    Failed
+}
+
 public enum EditeOperationType {
 	Rect,
 	Clear

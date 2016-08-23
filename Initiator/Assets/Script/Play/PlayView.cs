@@ -13,6 +13,11 @@ public class PlayView : MonoBehaviour {
 		get { return _levelData; }
 	}
 
+    private ModelBase _model;
+    public ModelBase Model {
+        get { return _model; }
+    }
+
 	public void PlayLevel(GameType type, LevelData ld) {
 		_type = type;
 		_levelData = ld;
@@ -23,8 +28,8 @@ public class PlayView : MonoBehaviour {
 		modelTF.localPosition = Vector3.zero;
 		modelTF.localScale = Vector3.one;
 
-		ModelBase model = modelTF.GetComponent<ModelBase>();
-		model.map.Init (ld, GameStatus.Play);
+        _model = modelTF.GetComponent<ModelBase>();
+        _model.Init();
 	}
 
 	public void Replay() {
