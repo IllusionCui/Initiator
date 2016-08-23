@@ -42,10 +42,12 @@ public class SlideModel : ModelBase {
     }
 
     public override void StartEndEffect() {
-        player.Dir = Vector3.up;
-        player.BaseSpeed = Config.JUMP_PLAYER_SPEED;
-        player.Rigidbody2D.velocity = player.Speed;
-        player.Rigidbody2D.gravityScale = Config.JUMP_PLAYER_G_SCALE;
+        if (IsWin) {
+            player.Dir = Vector3.up;
+            player.BaseSpeed = Config.JUMP_PLAYER_SPEED;
+            player.Rigidbody2D.velocity = player.Speed;
+            player.Rigidbody2D.gravityScale = Config.JUMP_PLAYER_G_SCALE;
+        }
     }
 
     bool GetFingerPos(out Vector3 fingerPos) {

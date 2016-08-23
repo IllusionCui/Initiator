@@ -49,8 +49,10 @@ public class JumpModel : ModelBase {
     }
 
     public override void StartEndEffect() {
-        player.Dir = Vector3.up;
-        player.Rigidbody2D.velocity = player.Speed;
+        if (IsWin) {
+            player.Dir = Vector3.up;
+            player.Rigidbody2D.velocity = player.Speed;
+        }
     }
 
     bool HasTouchBegin() {
