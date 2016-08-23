@@ -10,7 +10,7 @@ public class SlideModel : ModelBase {
 		map.BaseSpeed = Config.MAP_MOVE_SPEED_H;
 	}
 
-	void FixedUpdate () {
+	void Update () {
 		if (_isMoving) {
 			map.transform.Translate(map.Speed*Time.deltaTime);
 			CheckWin ();
